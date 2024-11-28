@@ -1,0 +1,24 @@
+{% for description in descriptions %}
+    <div>Name:  {{description.name}}</div>
+    <div>Address: {{description.address}}</div>
+    <div>Email: {{description.email}}</div>
+    <div>Age: {{description.age}}</div>
+
+    <br>
+    <div>
+        <div class="flex gap-2">
+            <button class="btn btn-outline"
+                onclick="document.getElementById('my_modal_{{description.pk}}').showModal()">Update</button>
+
+            <form hx-delete="{% url 'htmx_delete' description.pk %}"
+                  hx-target="#mylist"
+                  hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+                
+                <button class="btn btn-outline btn-error">Delete</button>
+            </form>
+
+        </div>
+        {% include 'core/partials/modal.html' %}
+    </div>
+
+{% endfor %}

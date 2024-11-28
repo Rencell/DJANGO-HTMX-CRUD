@@ -1,0 +1,43 @@
+<dialog id="my_modal_{{description.pk}}" class="modal">
+    <div class="modal-box">
+        <form method="dialog">
+            <button
+                class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <h3 class="text-lg font-bold mb-3">{{description.name}}</h3>
+
+        <form method="dialog" class="flex flex-col gap-3"
+            hx-put="{% url 'htmx_put' description.pk %}"
+            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+            hx-target="#mylist" 
+            hx-swap="afterbegin ">
+
+            <label class="input input-bordered flex items-center gap-2">
+                <i class="bi bi-person-fill"></i>
+                <input type="text" class="grow" name="name" placeholder="Name"
+                    value="{{ description.name }}" />
+            </label>
+            <label class="input input-bordered flex items-center gap-2">
+                <i class="bi bi-building"></i>
+                <input type="text" class="grow" name="address"
+                    placeholder="Address" value="{{ description.address }}" />
+            </label>
+            <label class="input input-bordered flex items-center gap-2">
+                <i class="bi bi-envelope-fill"></i>
+                <input type="text" class="grow" name="email" placeholder="Email"
+                    value="{{ description.email }}" />
+            </label>
+            <label class="input input-bordered flex items-center gap-2">
+                <i class="bi bi-envelope-fill"></i>
+                <input type="text" class="grow" name="age" placeholder="Age"
+                    value="{{ description.age }}" />
+            </label>
+            
+            <button 
+                class="btn btn-accent flex-1"
+                onclick="document.getElementById('my_modal_{{description.pk}}').close()">Update
+            </button>
+        </form>
+
+    </div>
+</dialog>

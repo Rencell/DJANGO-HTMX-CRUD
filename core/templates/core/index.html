@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Index{% endblock %}
+
+{% block content %}
+<a class="text-red-500" href="{% url 'core_create' %}">help</a>
+
+<label class="input input-bordered flex items-center gap-2 mb-4">
+    <input 
+        type="text" 
+        class="grow" 
+        placeholder="Search"
+        name="search"
+        hx-post="{% url 'htmx_search' %}"
+        hx-target="#mylist"
+        hx-trigger="keyup changed"
+        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' />
+    <i class="bi bi-search"></i>
+</label>
+<div id="mylist">
+
+    {% include 'core/partials/mytext.html' %}
+
+</div>
+
+{% endblock %}
